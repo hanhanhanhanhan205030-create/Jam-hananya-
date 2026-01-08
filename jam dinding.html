@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Jam Dinding Pelangi</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#222;
+}
+
+/* JAM */
+.clock{
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    background:white;
+    position:relative;
+    border:8px solid;
+    animation:borderRainbow 8s linear infinite;
+}
+
+/* BINGKAI PELANGI */
+@keyframes borderRainbow{
+    0%{border-color:red;}
+    14%{border-color:orange;}
+    28%{border-color:yellow;}
+    42%{border-color:green;}
+    57%{border-color:cyan;}
+    71%{border-color:blue;}
+    85%{border-color:violet;}
+    100%{border-color:red;}
+}
+
+/* ANGKA */
+.number{
+    position:absolute;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.n12{top:8px; left:50%; transform:translateX(-50%);}
+.n3{right:10px; top:50%; transform:translateY(-50%);}
+.n6{bottom:8px; left:50%; transform:translateX(-50%);}
+.n9{left:10px; top:50%; transform:translateY(-50%);}
+
+.n1{top:35px; right:70px;}
+.n2{top:75px; right:35px;}
+.n4{bottom:75px; right:35px;}
+.n5{bottom:35px; right:70px;}
+.n7{bottom:35px; left:70px;}
+.n8{bottom:75px; left:35px;}
+.n10{top:75px; left:35px;}
+.n11{top:35px; left:70px;}
+
+/* JARUM */
+.hand{
+    position:absolute;
+    left:50%;
+    bottom:50%;
+    transform-origin:50% 100%;
+    transform:translateX(-50%) rotate(0deg);
+    border-radius:4px;
+}
+
+.hour{
+    width:6px;
+    height:70px;
+    background:black;
+}
+
+.minute{
+    width:4px;
+    height:100px;
+    background:black;
+}
+
+.second{
+    width:2px;
+    height:120px;
+    background:red;
+}
+
+/* TITIK TENGAH */
+.center{
+    width:12px;
+    height:12px;
+    background:black;
+    border-radius:50%;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+</style>
+</head>
+
+<body>
+
+<div class="clock">
+    <div class="number n12">12</div>
+    <div class="number n1">1</div>
+    <div class="number n2">2</div>
+    <div class="number n3">3</div>
+    <div class="number n4">4</div>
+    <div class="number n5">5</div>
+    <div class="number n6">6</div>
+    <div class="number n7">7</div>
+    <div class="number n8">8</div>
+    <div class="number n9">9</div>
+    <div class="number n10">10</div>
+    <div class="number n11">11</div>
+
+    <div class="hand hour" id="hour"></div>
+    <div class="hand minute" id="minute"></div>
+    <div class="hand second" id="second"></div>
+    <div class="center"></div>
+</div>
+
+<script>
+function updateClock(){
+    const now = new Date(); // waktu HP kamu
+
+    const s = now.getSeconds();
+    const m = now.getMinutes();
+    const h = now.getHours() % 12;
+
+    const secDeg  = s * 6;
+    const minDeg  = m * 6 + s * 0.1;
+    const hourDeg = h * 30 + m * 0.5;
+
+    document.getElementById("second").style.transform =
+        `translateX(-50%) rotate(${secDeg}deg)`;
+
+    document.getElementById("minute").style.transform =
+        `translateX(-50%) rotate(${minDeg}deg)`;
+
+    document.getElementById("hour").style.transform =
+        `translateX(-50%) rotate(${hourDeg}deg)`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+
+</body>
+</html>
